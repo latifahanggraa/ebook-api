@@ -24,5 +24,19 @@ Route::get('books/{id}','BookController@show');//show/read data by id(detail dat
 Route::put('books/{id}','BookController@update');//update data
 Route::delete('books/{id}','BookController@destroy');//delete data */
 
-//Route::resource('books','BookController');
+Route::resource('books','BookController');
 Route::resource('authors','AuthorController');
+
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+    Route::post('login', 'AuthController@login');
+    Route::post('register', 'AuthController@register');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::get('user-profile', 'AuthController@userProfile');
+});
